@@ -1,15 +1,8 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/App/**/target/
-!**/src/test/**/target/
-
 ### IntelliJ IDEA ###
-.idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
 *.iws
-*.iml
 *.ipr
 
 ### Eclipse ###
@@ -46,17 +39,11 @@ build/
 /dataSources/
 /dataSources.local.xml
 #############
-## Idea
-#############
-.idea/
-.idea
 .repository/
 *.jrtc
 *.java
-*.class
 *.info
 *.properties
-*.jar
 
 /out/
 /Instruction.png
