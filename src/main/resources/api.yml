@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: "Gav API"
+  version: "1.0.0"
+servers:
+  - url: "http://example.com/api"
+    description: "Description for Server 1"
+  - url: "http://example2.com/api"
+    description: "Description for Server 2"
+tags:
+  - name: "Tag1"
+    description: "Description for Tag1"
+paths:
+  /GavApi:
+    get:
+      summary: "Summary for GET endpoint"
+      description: "Description for GET endpoint"
+      parameters:
+        - name: headerParam
+          in: header
+          description: "Header Parameter"
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: "#/components/responses/SuccessResponse"
+        '404':
+          $ref: "#/components/responses/NotFoundResponse"
+    put:
+      summary: "Summary for PUT endpoint"
+      description: "Description for PUT endpoint"
+      parameters:
+        - name: headerParam
+          in: header
+          description: "Header Parameter"
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: "#/components/responses/SuccessResponse"
+        '404':
+          $ref: "#/components/responses/NotFoundResponse"
+    post:
+      summary: "Summary for POST endpoint"
+      description: "Description for POST endpoint"
+      parameters:
+        - name: headerParam
+          in: header
+          description: "Header Parameter"
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: "#/components/responses/SuccessResponse"
+        '404':
+          $ref: "#/components/responses/NotFoundResponse"
+components:
+  schemas:
+    GavSchema:
+      type: object
+      properties:
+        property1:
+          type: string
+        property2:
+          type: integer
+  examples:
+    successExample:
+      value: "Success Example"
+    notFoundExample:
+      value: "Not Found Example"
+  responses:
+    SuccessResponse:
+      description: "Successful Response"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GavSchema"
+    NotFoundResponse:
+      description: "Not Found Response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
