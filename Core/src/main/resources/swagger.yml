@@ -1,0 +1,184 @@
+openapi: 3.0.0
+info:
+  title: "User API"
+  version: "1.0.0"
+servers:
+  - url: "{protocol}://localhost:{port}"
+    description: "Local development server"
+    variables:
+      protocol:
+        default: "http"
+        enum:
+          - "http"
+          - "https"
+      port:
+        default: "8080"
+        enum:
+          - "8080"
+          - "8443"
+  - url: "{protocol}://production.example.com/{basePath}"
+    description: "Production server"
+    variables:
+      protocol:
+        default: "https"
+      basePath:
+        default: "api/v1"
+        enum:
+          - "api/v1"
+          - "api/v2"
+tags:
+  - name: "Users"
+    description: "Operations related to users"
+paths:
+  /users:
+    get:
+      summary: "Get all users"
+      description: "Returns a list of all users."
+      operationId: "getAllUsers"
+      tags:
+        - "Users"
+      parameters:
+        - name: Authorization
+          in: header
+          description: "Bearer token for authentication"
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: "Page number for pagination"
+          required: false
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserDto"
+        '404':
+          $ref: "#/components/responses/NotFoundResponse"
+    post:
+      summary: "Create a new user"
+      description: "Adds a new user to the system."
+      operationId: "createUser"
+      tags:
+        - "Users"
+      parameters:
+        - name: RequestId
+          in: header
+          description: "Request ID for tracking"
+          required: false
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '201':
+          description: "User created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+
+  /users/{userId}:
+    put:
+      summary: "Update an existing user"
+      description: "Updates details of a specific user."
+      operationId: "updateUser"
+      tags:
+        - "Users"
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-Correlation-ID
+          in: header
+          description: "Correlation ID for the request"
+          required: false
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '200':
+          description: "User updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+
+components:
+  schemas:
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+      example:
+        id: 1
+        username: "john_doe"
+        email: "john.doe@example.com"
+
+  responses:
+    NotFoundResponse:
+      description: "Not Found Response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+                example: "User not found"
+    BadRequestResponse:
+      description: "Invalid request format or parameters"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Invalid request"
+
+  callbacks:
+    UserUpdateCallback:
+      '{$request.body#/callbackUrl}':
+        post:
+          requestBody:
+            content:
+              'application/json':
+                schema:
+                  $ref: '#/components/schemas/UserDto'
+          responses:
+            '200':
+              description: Callback successfully received
+
+  links:
+    UserLink:
+      operationId: getUserById
+      parameters:
+        userId: '$response.body#/id'
