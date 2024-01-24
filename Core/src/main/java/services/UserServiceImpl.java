@@ -8,7 +8,7 @@ import entity.User;
 import entity.Workout;
 import mapper.ExerciseSetMapper;
 import mapper.UserMapper;
-import Exception.UserNotFoundException;
+import exception.UserNotFoundException;
 import mapper.WorkoutMapper;
 import openapitools.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;

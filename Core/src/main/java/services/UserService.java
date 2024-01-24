@@ -6,7 +6,7 @@ import entity.ExerciseSet;
 import entity.TrainingProgram;
 import entity.User;
 import entity.Workout;
-import Exception.UserNotFoundException;
+import exception.UserNotFoundException;
 import openapitools.model.UserDto;
 
 import java.util.List;
