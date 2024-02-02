@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Entity
+@Table(name = "trainingProgram")
 public class TrainingProgram {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

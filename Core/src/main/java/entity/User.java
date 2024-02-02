@@ -4,11 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
-import javax.persistence.*;
+
 import java.util.List;
-=======
->>>>>>> master
+
 
 @Data
 @AllArgsConstructor

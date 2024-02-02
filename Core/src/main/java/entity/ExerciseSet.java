@@ -1,19 +1,15 @@
 package entity;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<<<<<<< HEAD
-import javax.persistence.*;
-
-=======
->>>>>>> master
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "exercise")
 public class ExerciseSet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
