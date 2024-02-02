@@ -104,12 +104,6 @@ paths:
           required: true
           schema:
             type: integer
-        - name: X-Correlation-ID
-          in: header
-          description: "Correlation ID for the request"
-          required: false
-          schema:
-            type: string
       requestBody:
         required: true
         content:
