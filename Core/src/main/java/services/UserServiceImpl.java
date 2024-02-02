@@ -8,13 +8,14 @@ import entity.User;
 import entity.Workout;
 import mapper.ExerciseSetMapper;
 import mapper.UserMapper;
-import Exception.UserNotFoundException;
+import exception.UserNotFoundException;
 import mapper.WorkoutMapper;
 import openapitools.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
