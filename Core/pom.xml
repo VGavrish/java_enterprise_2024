@@ -140,7 +140,7 @@
                         </goals>
                         <configuration>
                             <generatorName>spring</generatorName>
-                            <inputSpec>${project.basedir}/src/main/resources/swagger.yml</inputSpec>
+                            <inputSpec>C:/Users/Kater/IdeaProjects/java_enterprise_2023_11/ApiDefinitions/src/main/resources/swagger.yml</inputSpec>
                             <output>${project.build.directory}/generated-sources/</output>
                             <apiPackage>openapitools.api</apiPackage>
                             <modelPackage>openapitools.model</modelPackage>
