@@ -40,13 +40,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.openapitools</groupId>
-            <artifactId>openapi-generator-maven-plugin</artifactId>
-            <version>${openapi-generator.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
             <version>${plexus-utils.version}</version>
@@ -95,6 +88,12 @@
         </dependency>
 
         <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>${jakarta.persistence-api.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
             <version>${jackson-databind-nullable.version}</version>
@@ -117,6 +116,13 @@
         <artifactId>swagger-core</artifactId>
         <version>${swagger-core.version}</version>
     </dependency>
+
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>${openapi-generator.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -134,7 +140,7 @@
                         </goals>
                         <configuration>
                             <generatorName>spring</generatorName>
-                            <inputSpec>${project.basedir}/src/main/resources/swagger.yml</inputSpec>
+                            <inputSpec>C:/Users/Kater/IdeaProjects/java_enterprise_2023_11/ApiDefinitions/src/main/resources/swagger.yml</inputSpec>
                             <output>${project.build.directory}/generated-sources/</output>
                             <apiPackage>openapitools.api</apiPackage>
                             <modelPackage>openapitools.model</modelPackage>
