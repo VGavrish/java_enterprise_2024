@@ -1,6 +1,7 @@
 package API;
 
 import exception.UserNotFoundException;
+import jakarta.validation.Valid;
 import openapitools.api.UsersApi;
 import openapitools.model.UserDto;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import services.UserCreator;
 import services.UserServiceImpl;
 
 
@@ -20,10 +22,12 @@ public class UsersApiDelegate implements UsersApi {
     private static final Logger log = LoggerFactory.getLogger(UsersApiDelegate.class);
 
     private final UserServiceImpl userServiceImpl;
+    private final UserCreator userCreator;
 
     @Autowired
-    public UsersApiDelegate(UserServiceImpl userServiceImpl) {
+    public UsersApiDelegate(UserServiceImpl userServiceImpl, UserCreator userCreator) {
         this.userServiceImpl = userServiceImpl;
+        this.userCreator = userCreator;
     }
     @GetMapping
     @Override
@@ -37,9 +41,13 @@ public class UsersApiDelegate implements UsersApi {
     }
     @PostMapping
     @Override
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto, String requestId) {
-        log.info("Request to create user");
-        UserDto createdUser = userServiceImpl.createUser(userDto);
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto, String requestId) {
+        log.info("Request to create user: {}", userDto);
+        UserDto createdUser = userCreator.createUser(
+                userDto.getUsername(),
+                userDto.getPassword(),
+                userDto.getEmail()
+        );
         return ResponseEntity.ok(createdUser);
     }
     @PutMapping("/{userId}")

@@ -1,5 +1,6 @@
 {
   "id": 1,
   "username": "john_doe",
-  "email": "john.doe@example.com"
+  "email": "john.doe@example.com",
+  "password": "Valid123Password"
 }

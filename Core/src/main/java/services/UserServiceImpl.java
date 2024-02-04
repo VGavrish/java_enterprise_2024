@@ -6,6 +6,7 @@ import entity.ExerciseSet;
 import entity.TrainingProgram;
 import entity.User;
 import entity.Workout;
+import jakarta.validation.Valid;
 import mapper.ExerciseSetMapper;
 import mapper.UserMapper;
 import exception.UserNotFoundException;
@@ -13,12 +14,14 @@ import mapper.WorkoutMapper;
 import openapitools.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Validated
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
@@ -49,8 +52,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto createUser(UserDto userDto) {
-        return new UserDto();
+    public UserDto createUser(@Valid UserDto userDto) {
+        User user = mapDtoToUser(userDto);
+        userRepository.save(user);
+        return mapUserToDto(user);
     }
 
     @Override
