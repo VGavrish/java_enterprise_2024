@@ -125,7 +125,7 @@ components:
     UserDto:
       type: object
       required:
-        - username
+        - userName
         - password
         - email
       properties:
@@ -133,7 +133,7 @@ components:
           type: integer
           example: 1
           readOnly: true
-        username:
+        userName:
           type: string
           example: "john_doe"
         password:

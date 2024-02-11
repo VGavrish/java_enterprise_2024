@@ -1,12 +1,12 @@
 package com.hillel;
 
-import API.UsersApiDelegate;
 import exception.GlobalExceptionHandler;
 import exception.UserNotFoundException;
 import openapitools.model.UserDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -26,7 +26,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Import({GlobalExceptionHandler.class, UserCreator.class})
-@WebMvcTest(controllers = UsersApiDelegate.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class UsersApiDelegateTest {
     @Autowired
     private MockMvc mockMvc;
@@ -80,17 +81,17 @@ public class UsersApiDelegateTest {
     public void testUpdateUserPositive() throws Exception {
         UserDto userDto = new UserDto();
         userDto.setId(1);
-        userDto.setUsername("createdUser");
+        userDto.setUserName("createdUser");
         userDto.setEmail("createdEmail@mail.com");
         userDto.setPassword("ValidPassword123");
 
         when(userServiceImp.updateUser(eq(1), any(UserDto.class))).thenReturn(userDto);
         mockMvc.perform(put("/api/users/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"username\":\"createdUser\",\"email\":\"createdEmail@mail.com\",\"password\":\"ValidPassword123\"}"))
+                .content("{\"userName\":\"createdUser\",\"email\":\"createdEmail@mail.com\",\"password\":\"ValidPassword123\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.username").value("createdUser"))
+                .andExpect(jsonPath("$.userName").value("createdUser"))
                 .andExpect(jsonPath("$.email").value("createdEmail@mail.com"));
 
         verify(userServiceImp).updateUser(eq(1), any(UserDto.class));
@@ -103,7 +104,7 @@ public class UsersApiDelegateTest {
 
         mockMvc.perform(put("/api/users/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"username\":\"nonexistent\",\"email\":\"nonexistent@example.com\", \"password\":\"InvalidPassword\"}"))
+                .content("{\"userName\":\"nonexistent\",\"email\":\"nonexistent@example.com\", \"password\":\"InvalidPassword\"}"))
                 .andExpect(status().isNotFound());
 
         verify(userServiceImp).updateUser(eq(1),any(UserDto.class));
@@ -111,7 +112,7 @@ public class UsersApiDelegateTest {
 
     @Test
     public void createUserWithInvalidDataShouldReturnBadRequest() throws Exception {
-        String userJson = "{\"username\":\"ab\",\"password\":\"123\",\"email\":\"invalid-email\"}";
+        String userJson = "{\"userName\":\"ab\",\"password\":\"123\",\"email\":\"invalid-email\"}";
         mockMvc.perform(post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))

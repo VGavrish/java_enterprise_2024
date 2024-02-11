@@ -23,7 +23,7 @@ public class UserCreator {
                               @Validated @CustomConstraint(type = ValidationType.EMAIL) String email) {
         log.info("Creating user with userName: {}, password: {}, email: {}", userName, password, email);
         UserDto userDto = new UserDto();
-        userDto.setUsername(userName);
+        userDto.setUserName(userName);
         userDto.setPassword(password);
         userDto.setEmail(email);
 

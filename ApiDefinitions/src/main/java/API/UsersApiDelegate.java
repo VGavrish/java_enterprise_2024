@@ -44,7 +44,7 @@ public class UsersApiDelegate implements UsersApi {
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto, String requestId) {
         log.info("Request to create user: {}", userDto);
         UserDto createdUser = userCreator.createUser(
-                userDto.getUsername(),
+                userDto.getUserName(),
                 userDto.getPassword(),
                 userDto.getEmail()
         );
