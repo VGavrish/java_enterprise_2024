@@ -25,10 +25,4 @@ public class User {
 
     @CustomConstraint(type = ValidationType.EMAIL)
     private String email;
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<TrainingProgram> trainingProgramList;
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Workout> workoutList;
 }

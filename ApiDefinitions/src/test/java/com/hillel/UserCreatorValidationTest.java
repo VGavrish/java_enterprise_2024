@@ -23,10 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserCreatorValidationTest {
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private UserServiceImpl userService;
-
     @Test
     public void createUserWithInvalidUserNameNegative() throws Exception {
         log.debug("Starting createUserWithInvalidUserNameNegative test");
@@ -48,5 +46,5 @@ public void createUserWithInvalidPasswordNegative() throws Exception {
             .andExpect(status().isBadRequest());
 
     log.debug("createUserWithInvalidPasswordNegative test completed with expected status: 400 Bad Request");
-}
+    }
 }

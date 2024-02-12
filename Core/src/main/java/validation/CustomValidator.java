@@ -6,10 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CustomValidator implements ConstraintValidator<CustomConstraint, String> {
-
     private ValidationType validationType;
     private static final Logger log = LoggerFactory.getLogger(CustomValidator.class);
-
     @Override
     public void initialize(CustomConstraint constraintAnnotation) {
         this.validationType = constraintAnnotation.type();
@@ -20,9 +18,7 @@ public class CustomValidator implements ConstraintValidator<CustomConstraint, St
            log.debug("Validation failed: value is null for type: {}", validationType);
            return false;
        }
-
         boolean isValid;
-
         isValid = switch (validationType) {
             case USERNAME -> validateUserName(value);
             case PASSWORD -> validatePassword(value);

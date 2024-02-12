@@ -57,6 +57,4 @@ public class UsersApiDelegate implements UsersApi {
         UserDto updatedUser = userServiceImpl.updateUser(userId, userDto);
         return ResponseEntity.ok(updatedUser);
     }
-
-
 }

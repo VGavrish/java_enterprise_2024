@@ -14,7 +14,6 @@ public class UserCreator {
     private final UserServiceImpl userServiceImpl;
     private static final Logger log = LoggerFactory.getLogger(UserCreator.class);
 
-
     public UserCreator(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }

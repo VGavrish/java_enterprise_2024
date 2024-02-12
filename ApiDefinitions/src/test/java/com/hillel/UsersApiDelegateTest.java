@@ -33,9 +33,7 @@ public class UsersApiDelegateTest {
     private MockMvc mockMvc;
     @MockBean
     private UserServiceImpl userServiceImp;
-
     private static final String RESPONSE_JSON_PATH = "src/test/resources/userResponse.json";
-
     @Test
     public void testGetAllUsersPositive() throws Exception {
         List<UserDto> userList = new ArrayList<>();
@@ -48,7 +46,6 @@ public class UsersApiDelegateTest {
 
         verify(userServiceImp).getAllUsers();
     }
-
     @Test
     public void testCreateUserPositive() throws Exception{
         UserDto userDto = new UserDto();
@@ -61,14 +58,12 @@ public class UsersApiDelegateTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
-
     @Test
     public void testGetAllUsersNegativeUserNotFound() throws Exception {
         doThrow(new UserNotFoundException("User not found")).when(userServiceImp).getAllUsers();
         mockMvc.perform(get("/api/users").header("Authorization", "Bearer someToken"))
                 .andExpect(status().isNotFound());
     }
-
     @Test
     public void testCreateUserNegativeBadRequest() throws Exception {
         mockMvc.perform(post("/api/users")
@@ -76,7 +71,6 @@ public class UsersApiDelegateTest {
                 .content("{\"invalid\":data}"))
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testUpdateUserPositive() throws Exception {
         UserDto userDto = new UserDto();
@@ -109,7 +103,6 @@ public class UsersApiDelegateTest {
 
         verify(userServiceImp).updateUser(eq(1),any(UserDto.class));
     }
-
     @Test
     public void createUserWithInvalidDataShouldReturnBadRequest() throws Exception {
         String userJson = "{\"userName\":\"ab\",\"password\":\"123\",\"email\":\"invalid-email\"}";

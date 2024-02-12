@@ -19,11 +19,4 @@ public interface UserService {
     List<WorkoutDto> getWorkoutForProgram(Long userId, Long programId);
     WorkoutDto getWorkoutById(Long userId, Long workoutId);
     void deleteWorkout(Long userId, Long workoutId);
-//    void addTrainingProgramToUser(Long userId, TrainingProgram program);
-//    void remoteTrainingProgramFromUser(Long userId, TrainingProgram program);
-//    List<TrainingProgram> getTrainingProgramForUser(Long userId);
-//    void addWorkoutToUser(Long userId, Workout workout);
-//    void updateWorkout(Long userId, Workout workout);
-//    WorkoutDto mapWorkoutToDto(Workout workout);
-//    ExerciseSetDto mapExerciseSetToDto(ExerciseSet exerciseSet);
 }

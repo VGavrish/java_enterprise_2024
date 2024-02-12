@@ -15,7 +15,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleUserNotFoundException (UserNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
-
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<List<String>> handleConstraintViolationException(ConstraintViolationException ex) {
         List<String> errors = ex.getConstraintViolations()
