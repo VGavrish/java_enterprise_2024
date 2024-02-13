@@ -124,17 +124,25 @@ components:
   schemas:
     UserDto:
       type: object
+      required:
+        - userName
+        - password
+        - email
       properties:
         id:
           type: integer
-        username:
+          example: 1
+          readOnly: true
+        userName:
           type: string
+          example: "john_doe"
+        password:
+          type: string
+          format: password
+          example: "s3cr3t"
         email:
           type: string
-      example:
-        id: 1
-        username: "john_doe"
-        email: "john.doe@example.com"
+          example: "john.doe@example.com"
 
   responses:
     NotFoundResponse:
