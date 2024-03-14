@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import({GlobalExceptionHandler.class, UserCreator.class})
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UsersApiDelegateTest {
+public class UsersApiControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean

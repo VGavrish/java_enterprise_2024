@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -52,7 +52,13 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public List<UserDto> getAllUsers() {
-        return new ArrayList<>();
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            throw new UserNotFoundException("Users not found");
+        }
+        return users.stream()
+                .map(userMapper::userToUserDto)
+                .collect(Collectors.toList());
     }
     @Override
     public WorkoutDto getWorkoutForUser(Long userId) {
