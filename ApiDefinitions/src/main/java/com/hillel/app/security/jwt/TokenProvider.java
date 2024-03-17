@@ -1,4 +1,4 @@
-package security.jwt;
+package com.hillel.app.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

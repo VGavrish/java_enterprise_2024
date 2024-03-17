@@ -1,4 +1,4 @@
-package handler;
+package com.hillel.app.handler;
 
 import exception.UserNotFoundException;
 import exception.ErrorResponse;

@@ -1,4 +1,4 @@
-package services;
+package com.hillel.app.services;
 
 import openapitools.model.UserDto;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package security.model;
+package com.hillel.app.security.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

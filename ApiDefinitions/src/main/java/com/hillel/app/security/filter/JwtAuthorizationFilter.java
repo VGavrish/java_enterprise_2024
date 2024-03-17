@@ -1,4 +1,4 @@
-package security.filter;
+package com.hillel.app.security.filter;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
@@ -7,7 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import security.jwt.TokenProvider;
+import com.hillel.app.security.jwt.TokenProvider;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

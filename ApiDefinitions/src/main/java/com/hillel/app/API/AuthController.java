@@ -1,4 +1,4 @@
-package API;
+package com.hillel.app.API;
 
 import dto.SignInRequestDTO;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import security.jwt.TokenProvider;
-import services.UserService;
+import com.hillel.app.security.jwt.TokenProvider;
+import com.hillel.app.services.UserService;
 import java.util.HashMap;
 import java.util.Map;
 

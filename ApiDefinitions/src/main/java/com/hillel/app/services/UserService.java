@@ -1,4 +1,4 @@
-package services;
+package com.hillel.app.services;
 
 import dto.WorkoutDto;
 import entity.User;

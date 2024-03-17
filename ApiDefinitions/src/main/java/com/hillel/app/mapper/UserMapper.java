@@ -1,4 +1,4 @@
-package mapper;
+package com.hillel.app.mapper;
 
 import entity.User;
 import openapitools.model.UserDto;

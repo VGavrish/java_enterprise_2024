@@ -1,4 +1,4 @@
-package security.config;
+package com.hillel.app.security.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

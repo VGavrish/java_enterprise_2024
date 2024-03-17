@@ -10,8 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import services.UserCreator;
-import services.UserServiceImpl;
+import com.hillel.app.services.UserCreator;
+import com.hillel.app.services.UserServiceImpl;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
