@@ -32,6 +32,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService (BCryptPasswordEncoder encoder) {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("testuser").password(encoder.encode("testpassword")).roles("USER").build());
+        manager.createUser(User.withUsername("testADMIN").password(encoder.encode("testpassword")).roles("ADMIN").build());
         return manager;
     }
 
