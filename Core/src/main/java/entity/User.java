@@ -5,10 +5,11 @@ import lombok.*;
 import validation.CustomConstraint;
 import validation.ValidationType;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Data
-@Getter
-@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -16,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name")
+    @Column(name = "username")
     @CustomConstraint(type = ValidationType.USERNAME)
     private String userName;
 
@@ -25,4 +26,11 @@ public class User {
 
     @CustomConstraint(type = ValidationType.EMAIL)
     private String email;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 }

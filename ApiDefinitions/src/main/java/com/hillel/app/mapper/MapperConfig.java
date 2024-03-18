@@ -1,4 +1,4 @@
-package mapper;
+package com.hillel.app.mapper;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;

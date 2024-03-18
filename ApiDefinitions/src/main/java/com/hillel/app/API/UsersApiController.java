@@ -1,46 +1,53 @@
-package API;
+package com.hillel.app.API;
 
 import exception.UserNotFoundException;
 import jakarta.validation.Valid;
+import logger.aspect.Logging;
 import openapitools.api.UsersApi;
 import openapitools.model.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import services.UserCreator;
-import services.UserServiceImpl;
+import com.hillel.app.services.UserCreator;
+import com.hillel.app.services.UserServiceImpl;
 
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-public class UsersApiDelegate implements UsersApi {
-    private static final Logger log = LoggerFactory.getLogger(UsersApiDelegate.class);
+@PreAuthorize("hasRole('USER')")
+public class UsersApiController implements UsersApi {
+    private static final Logger log = LoggerFactory.getLogger(UsersApiController.class);
 
     private final UserServiceImpl userServiceImpl;
     private final UserCreator userCreator;
 
-    @Autowired
-    public UsersApiDelegate(UserServiceImpl userServiceImpl, UserCreator userCreator) {
+    public UsersApiController(UserServiceImpl userServiceImpl, UserCreator userCreator) {
         this.userServiceImpl = userServiceImpl;
         this.userCreator = userCreator;
     }
+    @Logging
     @GetMapping
     @Override
-    public ResponseEntity<List<UserDto>> getAllUsers(String authorization, Integer page) {
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         log.info("Request to get all users");
         List<UserDto> users = userServiceImpl.getAllUsers();
         if (users.isEmpty()) {
-            throw new UserNotFoundException("User not found");
+            log.warn("Users not found");
+            return ResponseEntity.ok(Collections.emptyList());
         }
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return ResponseEntity.ok(users);
     }
+    @Logging
     @PostMapping
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto, String requestId) {
         log.info("Request to create user: {}", userDto);
         UserDto createdUser = userCreator.createUser(
@@ -50,8 +57,10 @@ public class UsersApiDelegate implements UsersApi {
         );
         return ResponseEntity.ok(createdUser);
     }
+    @Logging
     @PutMapping("/{userId}")
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDto> updateUser(@PathVariable Integer userId, @RequestBody UserDto userDto) {
         log.info("Request to update user");
         UserDto updatedUser = userServiceImpl.updateUser(userId, userDto);

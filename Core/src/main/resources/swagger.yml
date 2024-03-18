@@ -37,20 +37,6 @@ paths:
       operationId: "getAllUsers"
       tags:
         - "Users"
-      parameters:
-        - name: Authorization
-          in: header
-          description: "Bearer token for authentication"
-          required: true
-          schema:
-            type: string
-        - name: page
-          in: query
-          description: "Page number for pagination"
-          required: false
-          schema:
-            type: integer
-            default: 1
       responses:
         '200':
           description: "Successful response"
@@ -143,6 +129,11 @@ components:
         email:
           type: string
           example: "john.doe@example.com"
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
 
   responses:
     NotFoundResponse:

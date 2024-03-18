@@ -1,18 +1,17 @@
-package services;
+package com.hillel.app.services;
 
 import dto.WorkoutDto;
 import entity.User;
-import jakarta.validation.Valid;
-import mapper.UserMapper;
+import com.hillel.app.mapper.UserMapper;
 import exception.UserNotFoundException;
 import openapitools.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import repository.UserRepository;
+import com.hillel.app.repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.userDtoToUser(userDto);
     }
     @Override
-    public UserDto createUser(@Valid UserDto userDto) {
+    public UserDto createUser(UserDto userDto) {
         User user = mapDtoToUser(userDto);
         userRepository.save(user);
         return mapUserToDto(user);
@@ -52,7 +51,13 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public List<UserDto> getAllUsers() {
-        return new ArrayList<>();
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            throw new UserNotFoundException("Users not found");
+        }
+        return users.stream()
+                .map(userMapper::userToUserDto)
+                .collect(Collectors.toList());
     }
     @Override
     public WorkoutDto getWorkoutForUser(Long userId) {
