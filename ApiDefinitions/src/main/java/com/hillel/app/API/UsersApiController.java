@@ -35,17 +35,12 @@ public class UsersApiController implements UsersApi {
     @GetMapping
     @Override
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<UserDto>> getAllUsers(@RequestHeader String authorization) {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         log.info("Request to get all users");
-        List<UserDto> users;
-        try {
-            users = userServiceImpl.getAllUsers();
-        } catch (UserNotFoundException e) {
-            log.warn("Users not found: {}", e.getMessage());
-            users = Collections.emptyList();
-        } catch (Exception e) {
-            log.error("Internal Server Error: {}", e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        List<UserDto> users = userServiceImpl.getAllUsers();
+        if (users.isEmpty()) {
+            log.warn("Users not found");
+            return ResponseEntity.ok(Collections.emptyList());
         }
         return ResponseEntity.ok(users);
     }

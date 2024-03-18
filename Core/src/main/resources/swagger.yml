@@ -37,15 +37,6 @@ paths:
       operationId: "getAllUsers"
       tags:
         - "Users"
-      security:
-        - BearerAuth: [ ]  # Reference to the security schema
-      parameters:
-        - name: Authorization
-          in: header
-          description: "Bearer token for authentication"
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: "Successful response"
