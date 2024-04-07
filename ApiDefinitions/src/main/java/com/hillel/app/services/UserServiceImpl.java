@@ -1,7 +1,7 @@
 package com.hillel.app.services;
 
 import dto.WorkoutDto;
-import entity.User;
+import com.hillel.app.entity.User;
 import com.hillel.app.mapper.UserMapper;
 import exception.UserNotFoundException;
 import openapitools.model.UserDto;
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUser(Integer userId, UserDto userDto) {
         User existingUser = userRepository.findById(Long.valueOf(userId))
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
-        existingUser.setUserName(userDto.getUserName());
+        existingUser.setUsername(userDto.getUserName());
         existingUser.setEmail(userDto.getEmail());
         existingUser.setPassword(userDto.getPassword());
         User updatedUser = userRepository.save(existingUser);

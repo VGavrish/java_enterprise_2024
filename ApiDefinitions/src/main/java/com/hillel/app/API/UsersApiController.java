@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import com.hillel.app.services.UserCreator;
 import com.hillel.app.services.UserServiceImpl;
@@ -18,16 +20,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@PreAuthorize("hasRole('USER')")
 public class UsersApiController implements UsersApi {
     private static final Logger log = LoggerFactory.getLogger(UsersApiController.class);
-
     private final UserServiceImpl userServiceImpl;
     private final UserCreator userCreator;
+    private final PasswordEncoder passwordEncoder;
+    private final Validator validator;
 
-    public UsersApiController(UserServiceImpl userServiceImpl, UserCreator userCreator) {
+    public UsersApiController(UserServiceImpl userServiceImpl, UserCreator userCreator, PasswordEncoder passwordEncoder, Validator validator) {
         this.userServiceImpl = userServiceImpl;
         this.userCreator = userCreator;
+        this.passwordEncoder = passwordEncoder;
+        this.validator = validator;
     }
     @Logging
     @GetMapping
@@ -58,7 +62,7 @@ public class UsersApiController implements UsersApi {
         log.info("Request to create user: {}", userDto);
         UserDto createdUser = userCreator.createUser(
                 userDto.getUserName(),
-                userDto.getPassword(),
+                passwordEncoder.encode(userDto.getPassword()),
                 userDto.getEmail()
         );
         return ResponseEntity.ok(createdUser);

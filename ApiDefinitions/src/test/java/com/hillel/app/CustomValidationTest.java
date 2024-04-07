@@ -1,6 +1,6 @@
-package com.hillel;
+package com.hillel.app;
 
-import entity.User;
+import com.hillel.app.entity.User;
 import jakarta.validation.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ public class CustomValidationTest {
     @Test
     public void testInvalidUserName() {
         User user = new User();
-        user.setUserName("ab");
+        user.setUsername("ab");
         user.setPassword("qwerty123");
         user.setEmail("user@mail.com");
 
@@ -29,7 +29,7 @@ public class CustomValidationTest {
     @Test
     public void testInvalidPassword() {
         User user = new User();
-        user.setUserName("ValidUser");
+        user.setUsername("ValidUser");
         user.setPassword("123");
         user.setEmail("user@mail.com");
 

@@ -1,4 +1,4 @@
-package validation;
+package com.hillel.app.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
