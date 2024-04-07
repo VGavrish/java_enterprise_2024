@@ -14,7 +14,7 @@ public interface UserService {
     UserDto createUser(@Valid UserDto UserDto);
     UserDto updateUser(Integer userId, UserDto userDto);
     UserDto getUserById(Long id) throws UserNotFoundException;
-    User deleteUser(Long id);
+    User deleteUserById(Long id);
     List<UserDto> getAllUsers();
     WorkoutDto getWorkoutForUser(Long userId);
     List<WorkoutDto> getWorkoutForProgram(Long userId, Long programId);

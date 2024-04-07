@@ -1,13 +1,11 @@
 package com.hillel.app.API;
 
-import exception.UserNotFoundException;
 import jakarta.validation.Valid;
 import logger.aspect.Logging;
 import openapitools.api.UsersApi;
 import openapitools.model.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +42,14 @@ public class UsersApiController implements UsersApi {
         }
         return ResponseEntity.ok(users);
     }
+
+    @Logging
+    @GetMapping("/{userId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
+        UserDto userDto = userServiceImpl.getUserById(userId);
+        return ResponseEntity.ok(userDto);
+    }
     @Logging
     @PostMapping
     @Override
@@ -65,5 +71,13 @@ public class UsersApiController implements UsersApi {
         log.info("Request to update user");
         UserDto updatedUser = userServiceImpl.updateUser(userId, userDto);
         return ResponseEntity.ok(updatedUser);
+    }
+
+    @Logging
+    @DeleteMapping("/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long userId) {
+        userServiceImpl.deleteUserById(userId);
+        return ResponseEntity.noContent().build();
     }
 }
