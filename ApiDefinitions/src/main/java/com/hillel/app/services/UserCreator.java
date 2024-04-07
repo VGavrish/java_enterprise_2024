@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import validation.CustomConstraint;
-import validation.ValidationType;
+import com.hillel.app.validation.CustomConstraint;
+import com.hillel.app.validation.ValidationType;
 
 @Component
 @Validated

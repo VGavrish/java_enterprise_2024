@@ -10,9 +10,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LoggingAspect {
-
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
-
     @Before("execution(* services.*.*(..))")
     public void beforeServiceMethodExecution(JoinPoint joinPoint) {
         logger.info("Executing method: {}", joinPoint.getSignature().toShortString());

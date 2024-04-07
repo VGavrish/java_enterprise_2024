@@ -1,7 +1,7 @@
 package com.hillel.app.services;
 
 import dto.WorkoutDto;
-import entity.User;
+import com.hillel.app.entity.User;
 import exception.UserNotFoundException;
 import jakarta.validation.Valid;
 import openapitools.model.UserDto;
